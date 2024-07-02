@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VNG - Vehicle Names Generator</title>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<style>
+  body {
+    font-family: 'Courier New', Courier, monospace;
+    background-color: #353535;
+    color: #abb2bf;
+    margin: 0;
+    padding: 20px;
+    padding-top: 150px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    max-height: 100vh;
+  }
+  .container {
+            position: relative;
+            max-width: 70vh;
+            margin: 50px auto;
+            padding: 20px;
+            border-radius: 20px;
+            z-index: 1;
+            background: linear-gradient(to bottom, rgba(75, 75, 75, 0.8), rgba(15, 15, 15, 0.8));
+            box-shadow: 0 0 10px rgba(15, 15, 15, 0.8);
+            background: #212121;;
+        }
+        .container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            max-width: 100vh;
+            border-radius: inherit;
+            z-index: -1;
+        }
+  .input-group {
+    margin-bottom: 10px;
+  }
+  label {
+    display: block;
+    margin-bottom: 5px;
+  }
+  input[type="text"] {
+    width: calc(100% - 16px);
+    padding: 8px;
+    margin-bottom: 10px;
+    background-color: #2c313a;
+    color: #abb2bf;
+    border: 1px solid #3e4451;
+    border-radius: 4px;
+  }
+  button {
+    padding: 10px 15px;
+    background-color: #89ef61;
+    color: #000000;
+    border: none;
+    cursor: pointer;
+    margin-right: 5px;
+    border-radius: 4px;
+  }
+  button:hover {
+    background-color: #609c49;
+    box-shadow: 0 0 10px #609c49;
+  }
+  .btn-danger {
+    background-color: #e06c75;
+    color: #000000;
+    border-radius: 50px;
+    cursor: pointer;
+    margin-right: 5px;
+    margin-bottom: 10px;
+    margin-top: 10px;
+    padding: 10px 15px;
+    font-weight: bold;
+  }
+  .btn-danger:hover {
+    background-color: #af545c;
+    box-shadow: 0 0 10px #af545c;
+  }
+  .btn-download {
+    background-color: #61f144;
+    color: #000000;
+    border: none;
+    cursor: pointer;
+    margin-right: 5px;
+    border-radius: 4px;
+  }
+  .btn-download:hover {
+    background-color: #2b6b1f;
+    box-shadow: 0 0 10px #2b6b1f;
+  }
+  .btn-nodanger {
+    background-color: #f8aa44;
+    color: #000000;
+    border: none;
+    cursor: pointer;
+    margin-right: 5px;
+    border-radius: 4px;
+  }
+  .btn-nodanger:hover {
+    background-color: #c88424;
+    box-shadow: 0 0 10px #c88424;
+  }
+  pre {
+    background-color: #0D0D0D;
+    padding: 10px;
+    border: 1px solid #3e4451;
+    white-space: pre-wrap;
+    color: #61afef;
+    border-radius: 4px;
+    position: relative;
+  }
+  h1 {
+            text-align: center;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); 
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+            background: #f87777;
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-size: 45px;
+            margin-bottom: 0;
+            margin-top: 0;
+            margin-left: 0;
+            margin-right: 0;
+            padding: 0;
+        }
+        h2 {
+            margin-top: 5px;
+            margin-bottom: -25px;
+            margin-left: -15px;
+            text-align: center;
+            font-size: 35px;
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); 
+            background: #a6f877;
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            padding: 15px;
+            border-radius: 10px;
+            display: inline-block;
+        }
+  .footer {
+    text-align: center;
+    margin-top: 20px;
+    color: #fff;
+  }
+  h6 {
+            padding-top: 40px;
+            color: #fff;
+            text-align: center;
+            margin-top: 12px;
+        }
+        .copyright2 {
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+            text-align: center; 
+            font-size: 12px;
+            color: #ffffff;
+            text-shadow: #000000 0 5px 5px;
+        }
+        .copyright3 {
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+            text-align: center; 
+            font-size: 12px;
+            color: #ffffff;
+            text-shadow: #000000 0 5px 5px;
+        }
+        a {
+            color: #707070;
+            text-decoration: none;
+        }
+        .version {
+            font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+            position: relative;
+            font-size: 10px; 
+            color: #ffffff;
+            font-weight: 500;
+            max-width: 100vh;
+            max-height: 100vh;
+        }
+
+        @keyframes colorIn {
+            80%, 100% {
+                color: #00f800;
+            }
+            40%, 50%, 80% {
+                color: #ff6600;
+            }
+            0%, 40% {
+                color: #ff0000; 
+            }
+        }
+
+        @keyframes flash4 {
+            0% {
+                opacity: 1;
+            }
+            50% {
+                opacity: 0;
+            }
+            100% {
+                opacity: 1;
+            }
+        }
+
+        @keyframes animate {
+            0% {
+                transform: rotate(0deg);
+            }
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+</style>
+</head>
+<body>
+<div id="content">
+<div class="container">
+    <div class="version" id="versionNumber"></div>
+  <h1>VEHICLE NAMES GENERATOR</h1>
+  <div id="vehicle-inputs">
+    <div class="input-group" style="display: block;">
+      <label for="spawnName1">Spawn Code</label>
+      <input type="text" id="spawnName1" placeholder="Enter vehicle spawn code">
+      <label for="displayName1">Real Display Name</label>
+      <input type="text" id="displayName1" placeholder="Enter real vehicle display name">
+    </div>
+  </div>
+  <button onclick="addVehicleInput()">Add Vehicle</button>
+  <br><br>
+  <button class="btn-nodanger" onclick="generateLua()">Generate LUA</button>
+  <div id="lua-output" style="display: none;">
+  <h2>Generated Lua Code</h2>
+  <pre><code id="lua-code"></code></pre>
+  <button type="button" class="btn-download" onclick="downloadLua()">Download LUA</button>
+  </div>
+  <h6>If you encounter any bugs or issues, please don't hesitate to open a ticket on our <a href="https://discord.gg/XcEHvPR9qA">Discord</a>.</h6>
+  <div class="copyright3">
+    &copy; 2024 Code Master
+</div> 
+</div>
+
+<script>
+  let vehicleCount = 1;
+  const vehicles = new Map();
+
+  function deleteVehicleInput() {
+    if (vehicleCount > 1) {
+      const vehicleInputs = document.getElementById('vehicle-inputs');
+      vehicleInputs.removeChild(vehicleInputs.lastChild);
+      vehicleCount--;
+      vehicles.delete(vehicleCount);
+    } else {
+      alert('You must have at least one vehicle.');
+    }
+    if (vehicleCount === 1) {
+        document.getElementById('lua-output').style.display = 'none';
+    }
+  }
+
+  function addVehicleInput() {
+    vehicleCount++;
+    const vehicleInputs = document.getElementById('vehicle-inputs');
+    const inputGroup = document.createElement('div');
+    inputGroup.className = 'input-group';
+    inputGroup.innerHTML = `
+      <button class="btn-danger" onclick="deleteVehicleInput()">Delete Vehicle</button>
+      <label for="spawnName${vehicleCount}">Spawn Code</label>
+      <input type="text" id="spawnName${vehicleCount}" placeholder="Enter vehicle spawn code">
+      <label for="displayName${vehicleCount}">Real Display Name</label>
+      <input type="text" id="displayName${vehicleCount}" placeholder="Enter real vehicle display name">
+    `;
+    vehicleInputs.appendChild(inputGroup);
+  }
+
+  function generateLua() {
+    let luaCode = 'Citizen.CreateThread(function()\n\n';
+    vehicles.clear();
+
+    for (let i = 1; i <= vehicleCount; i++) {
+      const displayName = document.getElementById(`displayName${i}`).value;
+      const spawnName = document.getElementById(`spawnName${i}`).value;
+      if (displayName && spawnName) {
+        if (vehicles.has(spawnName)) {
+          alert(`Vehicle with spawn name "${spawnName}" already exists.`);
+          return;
+        }
+        vehicles.set(spawnName, true);
+        luaCode += `  AddTextEntry('${spawnName}', '${displayName}')\n`;
+      }
+    }
+    luaCode += 'end)\n\n-- Made with VEHICLE NAMES GENERATOR by Code Master © 2024';
+
+    document.getElementById('lua-output').style.display = 'block';
+    document.getElementById('lua-code').innerText = luaCode;
+  }
+
+  function downloadLua() {
+    const luaCode = document.getElementById('lua-code').innerText;
+    const blob = new Blob([luaCode], { type: 'text/plain' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'vehicleNames.lua';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+  }
+
+document.cookie = "name=value; SameSite=Strict";
+
+setTimeout(function() {
+    document.getElementById("loader").style.display = "none";
+    document.getElementById("loader2").style.display = "none";
+    document.getElementById("loading-text").style.display = "none";
+    document.getElementById("loading-text2").style.display = "none";
+    document.getElementById("loading-text3").style.display = "none";
+    document.getElementById("copyright2").style.display = "none";
+    document.getElementById("content").style.display = "block";
+}, loadTime);
+
+document.addEventListener("DOMContentLoaded", function() {
+window.onload = function() {
+    document.body.scrollTop = 0;
+};
+
+
+});
+
+</script>
+</body>
+</html>
+
+
